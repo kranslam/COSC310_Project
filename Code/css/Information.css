@@ -1,0 +1,23 @@
+.button{
+  background-color: #8F1540;
+  color: white;
+  padding: 0.5em;
+  font-family: sans-serif;
+}
+h1{
+  font-family: "Oswald";
+  text-align: center;
+}
+header{
+  border-bottom: 1px solid #8F1540;
+  margin-bottom: 1em;
+}
+form{
+  font-family: "Oswald";
+
+}
+html{
+  margin-left: auto;
+  margin-right: auto;
+
+}
