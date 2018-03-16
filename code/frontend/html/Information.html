@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
   <title>Mapping For A Change</title>
   <!-- loading font from external library-->
-   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Information.css">
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/Information.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link rel="stylesheet" href="../css/Information.css">
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="../js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="../js/Information.js"></script>
 </head>
+
 <body>
   <header>
     <h1>Information</h1>
   </header>
   <main>
-    <form method = "post" action="../php/Information.php">
+    <form method="post" action="../php/Information.php">
       <!--Use this to filter out women's shelters/transgender only shelters-->
       <h3>Occupants:</h3>
       <label>Gender of Occupants</label>
@@ -35,105 +37,68 @@
     </select>
       <br>
       <!--If this facility is suitable for couples, families -->
-      <label>Accomodated Groups</label>
+      <label>Suitable For:</label>
       <select name="group">
       <option value="individual">Individual</option>
       <option value="couples">Couples</option>
       <option value="family">Family</option>
+      <option value="other">Other</option>
       </select>
       <br>
-      <label>Required to be on Income/Disability Assistance</label>
-      <input type="checkbox" name="DisabilityAssistance">
+
+
+      <h3>Building Info:</h3>
+      <!--If there is a waitlist, do not return it-->
+      <label>Available immediately:</label>
+      <input type="checkbox" name="availableNow">
       <br>
-
-
-
-      <!--Parse text from avialable services -->
-      <label><h3>Services Provided:</h3></label>
-        <label>Case Managment Services:</label>
-          <input type="checkbox" name="CaseManagmentServices" value="CaseManagmentServices">
-          <br>
-        <label>Referrals To Other Agencies:</label>
-          <input type="checkbox" name="ReferralsToOtherAgencies">
-          <br>
-        <label>Health/DentalCare:</label>
-          <input type="checkbox" name="Health/DentalCare">
-          <br>
-        <label>Meals:</label>
-          <input type="checkbox" name="Meals">
-          <br>
-        <label>Showers:</label>
-          <input type="checkbox" name="Showers">
-          <br>
-        <label>Storage:</label>
-          <input type="checkbox" name="Storage">
-          <br>
-        <label>Clothing/Household Goods:</label>
-          <input type="checkbox" name="Clothing/HouseholdGoods">
-          <br>
-
-
-
-          <h3>Building Info:</h3>
-          <!--If there is a waitlist, do not return it-->
-          <label>Available immediately:</label>
-            <input type="checkbox" name="availableNow">
-          <br>
-          <label>Has a Maximum Duration of Stay</label>
-            <input type="checkbox" name="MaxDuration">
-          <br>
-        <!--This is only relevant if it is a non-supportive housing
+      <!--This is only relevant if it is a non-supportive housing
           As supportive housing may not have indiidual rooms. If they
           select "supportive" for housing type, there is no need to query on this-->
-        <label>Number of Bedroom Units Needed:</label>
-        <select name="NumberOfBeds">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        </select>
-        <br>
-        <!--building type-->
-        <label>Building Type:</label>
-          <select name="BuildingType">
+      <label>Number of Bedroom Units Needed:</label>
+      <input type="number" name="numbeds">
+      <br>
+      <!--building type-->
+      <label>Building Type:</label>
+      <select name="BuildingType">
           <option value="Emergency">Emergency</option>
           <option value="Transitional">Transitional</option>
           <option value="Supportive">Supportive</option>
           <option value="Low Income Rental">Low Market</option>
           </select>
-          <br>
-        <!--these checkboxes are used to determine if the building
+      <br>
+      <!--these checkboxes are used to determine if the building
             or suites are accessible, if not, do not return-->
-        <label>Building Accomodates Individuals with Disabilities</label>
-        <input type="checkbox" name="buildingdisability">
-        <br>
-        <label>Units Accomote Individuals with Disabilities</label>
-        <input type="checkbox" name="unitdisability">
-        <Br>
+      <label>Building Accomodates Individuals with Disabilities</label>
+      <input type="checkbox" name="buildingdisability">
+      <br>
+      <label>Units Accomote Individuals with Disabilities</label>
+      <input type="checkbox" name="unitdisability">
+      <Br>
 
-          <!-- if this checkbox is checked, ignore the Monthly
+      <!-- if this checkbox is checked, ignore the Monthly
           cost range below, as it will not work with rgi buildings -->
-          <label>The builing is Rent Geared to Income (RGI)</label>
-          <input type="checkbox" name="rgi">
-          <br>
-          <!--Using the range, we can return the values that closest
+      <label>The building is Rent Geared to Income (RGI)</label>
+      <input type="checkbox" name="rgi">
+      <br>
+      <!--Using the range, we can return the values that closest
             match the cost first -->
-          <label>Monthly Cost Range:</label>
-          <select name="cost">
+      <label>Monthly Cost Range:</label>
+      <select name="cost">
           <option value="zero">$0 per month</option>
           <option value="under500">$500 or less per month</option>
           <option value="under1000">$1000 or less per month</option>
           <option value="other">Other amount</option>
           </select>
-          <br>
-          <!--if pet friendly, return "pet requirements" (if any)-->
-          <label>Pet Friendly:</label>
-          <input type="checkbox" name="PetFriendly">
-          <br>
-          <!-- if they are allowed, return the different levels of tolerance-->
-          <label>Has Zero Drug/Alchohol Tolerance</label>
-          <input type="checkbox" name="zerodrugs">
-          <br>
+      <br>
+      <!--if pet friendly, return "pet requirements" (if any)-->
+      <label>Pet Friendly:</label>
+      <input type="checkbox" name="PetFriendly">
+      <br>
+      <!-- if they are allowed, return the different levels of tolerance-->
+      <label>Has Zero Drug/Alchohol Tolerance</label>
+      <input type="checkbox" name="zerodrugs">
+      <br>
 
 
       <br>
@@ -144,4 +109,5 @@
   <footer>
   </footer>
 </body>
+
 </html>
