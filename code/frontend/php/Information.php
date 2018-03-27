@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html>
-
-<p>Here are some results:</p>
-
 <?php
+require('../../backend/fpdf.php');
 
 $host = "localhost";
-$database = "mfac";
-$user = "mfac";
-$password = "v9KdEMGL";
+$database = "mfc";
+$user = "root";
+$password = "";
 
 $connection = mysqli_connect($host, $user, $password, $database);
 
 $error = mysqli_connect_error();
 if($error != null)
 {
-  $output = "<p>Unable to connect to database!</p>";
-  exit($output);
+//  $output = "<p>Unable to connect to database!</p>";
+  exit();
 }
 else
 {
@@ -46,21 +42,39 @@ else
     $smoker=(isset($_POST['smoker']) ? $_POST['smoker'] : null);
     $ProfessionalSupport=(isset($_POST['ProfessionalSupport']) ? $_POST['ProfessionalSupport'] : null);
     //query
-    echo $HealthDentalCare;
-    echo $smoker;
-    $sql = "SELECT * FROM mfac;";
+    // echo $HealthDentalCare;
+    // echo $smoker;
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','b',15);
+    $pdf->MultiCell(40,10,"Shelter ");
+    $pdf->SetFont('Arial','',11);
+
+    $sql = "SELECT * FROM mfc;";
     $results = mysqli_query($connection, $sql);
+    $count=0;
     while ($row = mysqli_fetch_assoc($results))
     {
-      /*
       foreach($row as $field) {
-        echo '<p>' . htmlspecialchars($field) . '</p>';
+
+        if ($count==120) {
+          // $pdf->AddPage();
+          $pdf->SetFont('Arial','b',15);
+          $pdf->MultiCell(40,10,"Shelter ");
+          $count=0;
+          $pdf->SetFont('Arial','',11);
+
+        }
+        // $pdf->Cell(10, 10, 'Column: ');
+        $pdf->MultiCell(180,10,'Column: '.$field);
+        $count++;
     }
-    */
+
     }
     mysqli_free_result($results);
     mysqli_close($connection);
 
 }
+$pdf->Output();
 ?>
 </html>
