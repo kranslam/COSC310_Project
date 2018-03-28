@@ -1,0 +1,44 @@
+
+
+What the client wants returned:
+
+
+
+General info/organization info:
+
+How good is the match? (possibly compare how many of query filters were met)
+Organization name
+Location
+Description
+Building Type
+
+Cost: 
+
+Is this place eligible for income/disability assistance
+what is the rent/rent range?
+
+Waitlist/time:
+
+Is there a waitlist?
+What is the estimated wait time?
+Is there a maximum duration of stay?
+what is the maximum duration of stay?
+
+Services:
+
+What services are provided?
+Other services?
+
+Restrictions:
+
+Pet Friendly?
+Pet restrictions?
+Smoking (permitted in units? in building?)
+Drug/alchohol tolerance?
+Demographics accommodated?
+Genders accommodated?
+Families/couples/individuals accommodated?
+
+
+
+
