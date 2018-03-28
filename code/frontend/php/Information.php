@@ -63,12 +63,11 @@ else
     $rgi=(isset($_POST['rgi']) ? 1 : 0);
     $cost=(isset($_POST['cost']) ? $_POST['cost'] : null);
     $PetFriendly=(isset($_POST['PetFriendly']) ? 1 : 0);
-    $drugalcoholtolerance=(isset($_POST['zerodrugs']) ? 1 : 0);
 
     //query
 
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%' OR
-    residentsAreRequiredToAbstainFromAlcoholAndDrugs=$drugalcoholtolerance OR buuildingIsPetFriendly=$PetFriendly OR
+    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
+    OR buuildingIsPetFriendly=$PetFriendly OR
     providesServicesToDemographic16to18=$providesServicesToDemographic16to18 OR
     providesServiceToDemographic19=$providesServiceToDemographic19 OR
     providesServiceToDemographic55=$providesServiceToDemographic55 OR
@@ -90,8 +89,7 @@ else
       "<br>primaryTargetResidentsAreFamilies: ".$row['primaryTargetResidentsAreFamilies'].
       "<br>availableNow: ".$row['hasWaitingList']."<br>buildingType: ".$row['buildingType'].
       "<br>buildingdisability: ".$row['buildingAccommodatedIndividualsWithDisabilites']."<br>unitdisability".$row['someUnitsAccommodateIndividualsWithDisabilities'].
-      "<br>rgi".$row['unitsAreRGI']."<br>cost: ".$row['monthlyCostOfStay']."<br>petfriendly: ".$row['buuildingIsPetFriendly'].
-      "<br>levelOfDrugsAndAlcoholTolerence: ".$row['residentsAreRequiredToAbstainFromAlcoholAndDrugs']."</p>";
+      "<br>rgi".$row['unitsAreRGI']."<br>cost: ".$row['monthlyCostOfStay']."<br>petfriendly: ".$row['buuildingIsPetFriendly']."</p>";
 
     }
     mysqli_free_result($results);
