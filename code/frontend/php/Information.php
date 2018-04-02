@@ -192,6 +192,7 @@ OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow ;";
         //   $count++;
         // }
 
+
     }
     // mysqli_free_result($results);
     mysqli_close($connection);
