@@ -69,7 +69,8 @@ else
     //everytime the id shows up in a query increase the count by 1
     //might need to make it a 2d array not sure yet
     //dort the array on the value in decending order and query on the id and print what we need to print
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi ;"; 
+    $rowIds = array();
+    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi ;";
     $sql2 = "SELECT  DISTINCT * FROM mfac WHERE genderServed LIKE '%$gender%' ;";
     $sql3 = "SELECT  DISTINCT * FROM mfac WHERE buuildingIsPetFriendly=$PetFriendly ;";
     $sql4 = "SELECT  DISTINCT * FROM mfac WHERE providesServicesToDemographic16to18=$providesServicesToDemographic16to18 ;";
@@ -82,8 +83,26 @@ else
     $sql11= "SELECT  DISTINCT * FROM mfac WHERE buildingType LIKE '%$BuildingType%' ;";
     $sql12= "SELECT  DISTINCT * FROM mfac WHERE hasWaitingList=$availableNow ;";
     $results = mysqli_query($connection, $sql);
+    $results2 = mysqli_query($connection, $sql2);
+    $results3 = mysqli_query($connection, $sql3);
+    $results4 = mysqli_query($connection, $sql4);
+    $results5 = mysqli_query($connection, $sql5);
+    $results6 = mysqli_query($connection, $sql6);
+    $results7 = mysqli_query($connection, $sql7);
+    $results8 = mysqli_query($connection, $sql8);
+    $results9 = mysqli_query($connection, $sql9);
+    $results10 = mysqli_query($connection, $sql10);
+    $results11 = mysqli_query($connection, $sql11);
+    $results12 = mysqli_query($connection, $sql12);
     while ($row = mysqli_fetch_assoc($results))
     {
+      if($rowsId[$row['id']]==null){
+        $rowIds[$rows['id']]=1;
+      }else{
+        $count = $rowIds[$rows['id']];
+        $rowIds[$rows['id']]= ($count+1)
+      }
+    }
       echo "<p>id is: ".$row['id']."<br>item owner name: ".$row['itemOwnerName']."<br>item owner email: ".
       $row['itemOwnerEmail']."<br>providesServiceToMales: ".
       $row["providesServiceToMales"]."<br>providesServiceToFemales: ".
@@ -98,7 +117,7 @@ else
       "<br>buildingdisability: ".$row['buildingAccommodatedIndividualsWithDisabilites']."<br>unitdisability".$row['someUnitsAccommodateIndividualsWithDisabilities'].
       "<br>rgi".$row['unitsAreRGI']."<br>cost: ".$row['monthlyCostOfStay']."<br>petfriendly: ".$row['buuildingIsPetFriendly']."</p>";
 
-    }
+
     mysqli_free_result($results);
     mysqli_close($connection);
 
