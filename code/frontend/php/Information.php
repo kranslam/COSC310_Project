@@ -7,8 +7,8 @@
 
 $host = "localhost";
 $database = "mfac";
-$user = "mfac";
-$password = "v9KdEMGL";
+$user = "devon";
+$password = "password";
 
 $connection = mysqli_connect($host, $user, $password, $database);
 
@@ -65,15 +65,22 @@ else
     $PetFriendly=(isset($_POST['PetFriendly']) ? 1 : 0);
 
     //query
-
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
-    OR buuildingIsPetFriendly=$PetFriendly OR
-    providesServicesToDemographic16to18=$providesServicesToDemographic16to18 OR
-    providesServiceToDemographic19=$providesServiceToDemographic19 OR
-    providesServiceToDemographic55=$providesServiceToDemographic55 OR
-    providesServiceToOtherDemographic=$providesServiceToOtherDemographic OR
-    primaryTargetResidentsAreIndividuals=$individual OR primaryTargetResidentsAreFamilies=$family OR monthlyCostOfStay LIKE '%$cost%'
-    OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow ;";
+    // make a key value pair array with the id as the key and the count of how many times it shows up as the value
+    //everytime the id shows up in a query increase the count by 1
+    //might need to make it a 2d array not sure yet
+    //dort the array on the value in decending order and query on the id and print what we need to print
+    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi ;"; 
+    $sql2 = "SELECT  DISTINCT * FROM mfac WHERE genderServed LIKE '%$gender%' ;";
+    $sql3 = "SELECT  DISTINCT * FROM mfac WHERE buuildingIsPetFriendly=$PetFriendly ;";
+    $sql4 = "SELECT  DISTINCT * FROM mfac WHERE providesServicesToDemographic16to18=$providesServicesToDemographic16to18 ;";
+    $sql5 = "SELECT  DISTINCT * FROM mfac WHERE providesServiceToDemographic19=$providesServiceToDemographic19 ;";
+    $sql6 = "SELECT  DISTINCT * FROM mfac WHERE providesServiceToDemographic55=$providesServiceToDemographic55 ;";
+    $sql7 = "SELECT  DISTINCT * FROM mfac WHERE providesServiceToOtherDemographic=$providesServiceToOtherDemographic ;";
+    $sql8 = "SELECT  DISTINCT * FROM mfac WHERE primaryTargetResidentsAreIndividuals=$individual ;";
+    $sql9 = "SELECT  DISTINCT * FROM mfac WHERE primaryTargetResidentsAreFamilies=$family ;";
+    $sql10= "SELECT  DISTINCT * FROM mfac WHERE monthlyCostOfStay LIKE '%$cost%' ;";
+    $sql11= "SELECT  DISTINCT * FROM mfac WHERE buildingType LIKE '%$BuildingType%' ;";
+    $sql12= "SELECT  DISTINCT * FROM mfac WHERE hasWaitingList=$availableNow ;";
     $results = mysqli_query($connection, $sql);
     while ($row = mysqli_fetch_assoc($results))
     {
