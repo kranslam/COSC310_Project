@@ -88,7 +88,7 @@ OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow ;";
         $pdf->MultiCell(180, 10, $row['coordinate']);
 
         $pdf->SetFont('Arial', 'u', 10);
-        $pdf->MultiCell(50, 10, 'Description: ' );
+        $pdf->MultiCell(50, 10, 'Description: ');
         $pdf->SetFont('');
         $pdf->MultiCell(180, 10, isZero($row['description']));
 
@@ -211,7 +211,11 @@ function isZero($value)
             }
         } else if (empty($value)) {
             return 'N/A';
-        } else{
+        } else if ($value == '0') {
+            return 'No';
+        } else {
+            return 'Yes';
+        }{
             return $value;
         }
     }else //is an array
