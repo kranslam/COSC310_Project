@@ -90,7 +90,6 @@ else
     $results = mysqli_query($connection, $sql);
     while ($row = mysqli_fetch_assoc($results))
     {
-
       $count=0;
 
       if($row['unitsAreRGI']==$rgi){
