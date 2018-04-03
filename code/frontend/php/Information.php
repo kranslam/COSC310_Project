@@ -96,11 +96,71 @@ else
     $results12 = mysqli_query($connection, $sql12);
     while ($row = mysqli_fetch_assoc($results))
     {
+      if($rowsIds[$row['id']]==null){
+        $rowIds[$rows['id']]=1;
+      }else{
+        $count = $rowIds[$rows['id']];
+        $rowIds[$rows['id']]= ($count+1);
+      }
+    }
+
+    while ($row2 = mysqli_fetch_assoc($results2))
+    {
+      if($rowsIds[$row2['id']]==null){
+        $rowIds[$rows2['id']]=1;
+      }else{
+        $count = $rowIds[$rows2['id']];
+        $rowIds[$rows2['id']]= ($count+1);
+      }
+    }
+
+    while ($row3 = mysqli_fetch_assoc($results3))
+    {
+      if($rowsIds[$row3['id']]==null){
+        $rowIds[$rows3['id']]=1;
+      }else{
+        $count = $rowIds[$rows3['id']];
+        $rowIds[$rows3['id']]= ($count+1);
+      }
+    }
+
+    while ($row4 = mysqli_fetch_assoc($results4))
+    {
+      if($rowsIds[$row4['id']]==null){
+        $rowIds[$rows4['id']]=1;
+      }else{
+        $count = $rowIds[$rows4['id']];
+        $rowIds[$rows4['id']]= ($count+1);
+      }
+    }
+
+    while ($row5 = mysqli_fetch_assoc($results5))
+    {
+      if($rowsIds[$row5['id']]==null){
+        $rowIds[$rows5['id']]=1;
+      }else{
+        $count = $rowIds[$rows5['id']];
+        $rowIds[$rows5['id']]= ($count+1);
+      }
+    }
+
+    while ($row6 = mysqli_fetch_assoc($results6))
+    {
+      if($rowsIds[$row6['id']]==null){
+        $rowIds[$rows6['id']]=1;
+      }else{
+        $count = $rowIds[$rows6['id']];
+        $rowIds[$rows6['id']]= ($count+1);
+      }
+    }
+
+    while ($row7 = mysqli_fetch_assoc($results))
+    {
       if($rowsId[$row['id']]==null){
         $rowIds[$rows['id']]=1;
       }else{
         $count = $rowIds[$rows['id']];
-        $rowIds[$rows['id']]= ($count+1)
+        $rowIds[$rows['id']]= ($count+1);
       }
     }
       echo "<p>id is: ".$row['id']."<br>item owner name: ".$row['itemOwnerName']."<br>item owner email: ".
