@@ -2,7 +2,6 @@
 <html>
 <head lang="en">
   <title>Mapping For A Change</title>
-  > Load font from external library<
    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="../css/Information.css">
     <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -105,14 +104,14 @@
   <footer>
   </footer>
 </body>
-</html>
-  -->
+</html> -->
+
+
 <!DOCTYPE html>
 <html>
 
 <head lang="en">
   <title>Mapping For A Change</title>
-  <!-- loading font from external library-->
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <link rel="stylesheet" href="../css/Information.css">
   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -126,17 +125,15 @@
   </header>
   <main>
     <form method="post" action="../php/Information.php">
-      <!--Use this to filter out women's shelters/transgender only shelters-->
       <h3>Occupants:</h3>
       <label>Gender of Occupants</label>
       <select name="gender">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="transgender">Transgender</option>
-      <option value="other">Other</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Transgender">Transgender</option>
+      <option value="Other">Other</option>
       </select>
       <br>
-      <!--This will be used to determine if we can return youth housing, retirement homes, etc-->
       <label>Demographic</label>
       <select name="age">
       <option value="under19">Youth (16-18)</option>
@@ -145,7 +142,6 @@
       <option value="Other">Other</option>
     </select>
       <br>
-      <!--If this facility is suitable for couples, families -->
       <label>Suitable For:</label>
       <select name="group">
       <option value="individual">Individual</option>
@@ -157,27 +153,22 @@
 
 
       <h3>Building Info:</h3>
-      <!--If there is a waitlist, do not return it-->
       <label>Available immediately:</label>
       <input type="checkbox" name="availableNow">
       <br>
-      <!--This is only relevant if it is a non-supportive housing
-          As supportive housing may not have indiidual rooms. If they
-          select "supportive" for housing type, there is no need to query on this-->
+
       <label>Number of Bedroom Units Needed:</label>
       <input type="number" name="numbeds">
       <br>
-      <!--building type-->
       <label>Building Type:</label>
       <select name="BuildingType">
-          <option value="Emergency">Emergency</option>
-          <option value="Transitional">Transitional</option>
-          <option value="Supportive">Supportive</option>
-          <option value="Low Income Rental">Low Market</option>
+          <option value="emergency">Emergency</option>
+          <option value="transitional">Transitional</option>
+          <option value="supportive">Supportive</option>
+          <option value="low income rental">Low Market</option>
           </select>
       <br>
-      <!--these checkboxes are used to determine if the building
-            or suites are accessible, if not, do not return-->
+
       <label>Building Accomodates Individuals with Disabilities</label>
       <input type="checkbox" name="buildingdisability">
       <br>
@@ -185,13 +176,11 @@
       <input type="checkbox" name="unitdisability">
       <Br>
 
-      <!-- if this checkbox is checked, ignore the Monthly
-          cost range below, as it will not work with rgi buildings -->
+
       <label>The building is Rent Geared to Income (RGI)</label>
       <input type="checkbox" name="rgi">
       <br>
-      <!--Using the range, we can return the values that closest
-            match the cost first -->
+
       <label>Monthly Cost Range:</label>
       <select name="cost">
           <option value="zero">$0 per month</option>
@@ -200,7 +189,6 @@
           <option value="other">Other amount</option>
           </select>
       <br>
-      <!--if pet friendly, return "pet requirements" (if any)-->
       <label>Pet Friendly:</label>
       <input type="checkbox" name="PetFriendly">
       <br>
