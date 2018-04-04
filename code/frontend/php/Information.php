@@ -5,10 +5,10 @@
 
 <?php
 
-$host = "localhost";
+$host = "127.0.0.1";
 $database = "mfac";
-$user = "mfac";
-$password = "v9KdEMGL";
+$user = "devon";
+$password = "password";
 
 $connection = mysqli_connect($host, $user, $password, $database);
 
@@ -78,7 +78,7 @@ else
     }
     //query
     $mfcArray = array();
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
+    $sql = "SELECT  DISTINCT * FROM mfc WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
     OR buuildingIsPetFriendly=$PetFriendly OR
     providesServicesToDemographic16to18=$providesServicesToDemographic16to18 OR
     providesServiceToDemographic19=$providesServiceToDemographic19 OR
@@ -144,7 +144,7 @@ else
     }
     arsort($mfcArray);
     foreach ($mfcArray as $listId => $count) {
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE id=".$listId." ;";
+    $sql = "SELECT  DISTINCT * FROM mfc WHERE id=".$listId." ;";
     $results = mysqli_query($connection, $sql);
     while ($row = mysqli_fetch_assoc($results))
     {
