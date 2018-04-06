@@ -5,10 +5,10 @@
 
 <?php
 
-$host = "localhost";
+$host = "127.0.0.1";
 $database = "mfac";
-$user = "mfac";
-$password = "v9KdEMGL";
+$user = "devon";
+$password = "password";
 
 $connection = mysqli_connect($host, $user, $password, $database);
 
@@ -58,40 +58,114 @@ else
     }
     $availableNow=(isset($_POST['availableNow']) ? 0 : 1);
     $BuildingType=(isset($_POST['BuildingType']) ? $_POST['BuildingType'] : null);
-    $buildingdisability=(isset($_POST['buildingdisability']) ? 1 : 0);
-    $unitdisability=(isset($_POST['unitdisability']) ? 1 : 0);
+    $buildingdisability=(isset($_POST['buildingAccommodatedIndividualsWithDisabilites']) ? 1 : 0);
+    $unitdisability=(isset($_POST['someUnitsAccommodateIndividualsWithDisabilities']) ? 1 : 0);
     $rgi=(isset($_POST['rgi']) ? 1 : 0);
     $cost=(isset($_POST['cost']) ? $_POST['cost'] : null);
     $PetFriendly=(isset($_POST['PetFriendly']) ? 1 : 0);
 
+    $providesServiceToMale=0;
+    $providesServiceToFemale=0;
+    $providesServiceToTransgender=0;
+    if($gender=='male'){
+        $providesServiceToMale=1;
+    }
+    else if($gender=='female'){
+        $providesServiceToFemale=1;
+    }
+    else if($gender=='transgender'){
+        $providesServiceToTransgender=1;
+    }
     //query
-
-    $sql = "SELECT  DISTINCT * FROM mfac WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
+    $mfcArray = array();
+    $sql = "SELECT  DISTINCT * FROM mfc WHERE unitsAreRGI=$rgi OR genderServed LIKE '%$gender%'
     OR buuildingIsPetFriendly=$PetFriendly OR
     providesServicesToDemographic16to18=$providesServicesToDemographic16to18 OR
     providesServiceToDemographic19=$providesServiceToDemographic19 OR
     providesServiceToDemographic55=$providesServiceToDemographic55 OR
     providesServiceToOtherDemographic=$providesServiceToOtherDemographic OR
     primaryTargetResidentsAreIndividuals=$individual OR primaryTargetResidentsAreFamilies=$family OR monthlyCostOfStay LIKE '%$cost%'
-    OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow ;";
+    OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow OR
+    buildingAccommodatedIndividualsWithDisabilites=$buildingdisability OR someUnitsAccommodateIndividualsWithDisabilities=$unitdisability;";
     $results = mysqli_query($connection, $sql);
     while ($row = mysqli_fetch_assoc($results))
     {
-      echo "<p>id is: ".$row['id']."<br>item owner name: ".$row['itemOwnerName']."<br>item owner email: ".
-      $row['itemOwnerEmail']."<br>providesServiceToMales: ".
-      $row["providesServiceToMales"]."<br>providesServiceToFemales: ".
-      $row['providesServiceToFemales']."<br>providesServiceToTransgender: ".$row['providesServiceToTransgender'].
-      "<br>providesServicesToDemographic16to18: ".$row['providesServicesToDemographic16to18'].
-      "<br>providesServiceToDemographic19: ".$row['providesServiceToDemographic19'].
-      "<br>providesServiceToDemographic55: ".$row['providesServiceToDemographic55'].
-      "<br>providesServiceToOtherDemographic: ".$row['providesServiceToOtherDemographic'].
-      "<br>primaryTargetResidentsAreIndividuals: ".$row['primaryTargetResidentsAreIndividuals'].
-      "<br>primaryTargetResidentsAreFamilies: ".$row['primaryTargetResidentsAreFamilies'].
-      "<br>availableNow: ".$row['hasWaitingList']."<br>buildingType: ".$row['buildingType'].
-      "<br>buildingdisability: ".$row['buildingAccommodatedIndividualsWithDisabilites']."<br>unitdisability".$row['someUnitsAccommodateIndividualsWithDisabilities'].
-      "<br>rgi".$row['unitsAreRGI']."<br>cost: ".$row['monthlyCostOfStay']."<br>petfriendly: ".$row['buuildingIsPetFriendly']."</p>";
+      $count=0;
 
+      if($row['unitsAreRGI']==$rgi){
+        $count=$count+1;
+      }
+      else if($row['providesServiceToMales']==$providesServiceToMale){
+        $count=$count+1;
+      }
+      else if($row['providesServiceToFemales']==$providesServiceToFemale){
+        $count=$count+1;
+      }
+      else if($row['providesServiceToTransgender']==$providesServiceToTransgender){
+        $count=$count+1;
+      }
+      if($row['providesServicesToDemographic16to18']==$providesServicesToDemographic16to18){
+        $count=$count+1;
+      }
+      else if($row['providesServiceToDemographic19']==$providesServiceToDemographic19){
+        $count=$count+1;
+      }
+      else if($row['providesServiceToDemographic55']==$providesServiceToDemographic55){
+        $count=$count+1;
+      }
+      if($row['providesServiceToOtherDemographic']==$providesServiceToOtherDemographic){
+        $count=$count+1;
+      }
+      if($row['primaryTargetResidentsAreIndividuals']==$rgi){
+        $count=$count+1;
+      }
+      else if($row['primaryTargetResidentsAreFamilies']==$rgi){
+        $count=$count+1;
+      }
+      if($row['monthlyCostOfStay']==$rgi){
+        $count=$count+1;
+      }
+      if($row['buildingType']==$BuildingType){
+        $count=$count+1;
+      }
+      if($row['hasWaitingList']==$rgi){
+        $count=$count+1;
+      }
+      if($row['buuildingIsPetFriendly']==$PetFriendly){
+        $count=$count+1;
+      }
+      if($row['buildingAccommodatedIndividualsWithDisabilites']==$buildingdisability){
+        $count=$count+1;
+      }
+      if($row['someUnitsAccommodateIndividualsWithDisabilities']==$unitdisability){
+        $count=$count+1;
+      }
+      $mfcArray[$row['id']]=$count;
     }
+    arsort($mfcArray);
+    foreach ($mfcArray as $listId => $count) {
+    $sql = "SELECT  DISTINCT * FROM mfc WHERE id=".$listId." ;";
+    $results = mysqli_query($connection, $sql);
+    while ($row = mysqli_fetch_assoc($results))
+    {
+    echo "".(($count/10)*100)."%";
+    echo "<p>id is: ".$row['id']."<br>item owner name: ".$row['itemOwnerName']."<br>item owner email: ".
+    $row['itemOwnerEmail']."<br>providesServiceToMales: ".
+    $row["providesServiceToMales"]."<br>providesServiceToFemales: ".
+    $row['providesServiceToFemales']."<br>providesServiceToTransgender: ".$row['providesServiceToTransgender'].
+    "<br>providesServicesToDemographic16to18: ".$row['providesServicesToDemographic16to18'].
+    "<br>providesServiceToDemographic19: ".$row['providesServiceToDemographic19'].
+    "<br>providesServiceToDemographic55: ".$row['providesServiceToDemographic55'].
+    "<br>providesServiceToOtherDemographic: ".$row['providesServiceToOtherDemographic'].
+    "<br>primaryTargetResidentsAreIndividuals: ".$row['primaryTargetResidentsAreIndividuals'].
+    "<br>primaryTargetResidentsAreFamilies: ".$row['primaryTargetResidentsAreFamilies'].
+    "<br>availableNow: ".$row['hasWaitingList']."<br>buildingType: ".$row['buildingType'].
+    "<br>buildingdisability: ".$row['buildingAccommodatedIndividualsWithDisabilites']."<br>unitdisability".$row['someUnitsAccommodateIndividualsWithDisabilities'].
+    "<br>rgi".$row['unitsAreRGI']."<br>cost: ".$row['monthlyCostOfStay']."<br>petfriendly: ".$row['buuildingIsPetFriendly'].
+    "<br>buildingdisability".$row['buildingAccommodatedIndividualsWithDisabilites'].
+    "<br>unitdisability".$row['someUnitsAccommodateIndividualsWithDisabilities']."</p>";
+  }
+}
     mysqli_free_result($results);
     mysqli_close($connection);
 
