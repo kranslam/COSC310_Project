@@ -213,9 +213,9 @@ function isZero($value)
             return 'N/A';
         } else if ($value == '0') {
             return 'No';
-        } else {
+        } else if($value=='1'){
             return 'Yes';
-        }{
+        }else{
             return $value;
         }
     }else //is an array
