@@ -1,9 +1,9 @@
 <?php
 require('../../backend/fpdf.php');
 
-$host     = "localhost";
+$host     = "";
 $database = "mfc";
-$user     = "root";
+$user     = "";
 $password = "";
 
 $connection = mysqli_connect($host, $user, $password, $database);
