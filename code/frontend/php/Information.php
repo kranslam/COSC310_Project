@@ -1,9 +1,9 @@
 <?php
 require('../../backend/fpdf.php');
 
-$host     = "";
+$host     = "localhost";
 $database = "mfc";
-$user     = "";
+$user     = "root";
 $password = "";
 
 $connection = mysqli_connect($host, $user, $password, $database);
@@ -20,34 +20,28 @@ if ($error != null) {
     $providesServiceToDemographic19=0;
     $providesServiceToDemographic55=0;
     $providesServiceToOtherDemographic=0;
-    if($age=='under19'){
-      $providesServicesToDemographic16to18=1;
-    }
-    elseif ($age=='over19') {
-      $providesServiceToDemographic19=1;
-    }
-    elseif ($age=='Senior') {
-      $providesServiceToDemographic55=1;
-    }
-    else {
-      $providesServiceToOtherDemographic=1;
+    if ($age=='under19') {
+        $providesServicesToDemographic16to18=1;
+    } elseif ($age=='over19') {
+        $providesServiceToDemographic19=1;
+    } elseif ($age=='Senior') {
+        $providesServiceToDemographic55=1;
+    } else {
+        $providesServiceToOtherDemographic=1;
     }
     $suitablefor=(isset($_POST['group']) ? $_POST['group'] : null);
     $individual=0;
     $couples=0;
     $family=0;
     $othergroup=0;
-    if($suitablefor=='individual'){
-      $individual=1;
-    }
-    elseif ($suitablefor=='couples') {
-      $couples=1;
-    }
-    elseif ($suitablefor=='family') {
-      $family=1;
-    }
-    else {
-      $othergroup=1;
+    if ($suitablefor=='individual') {
+        $individual=1;
+    } elseif ($suitablefor=='couples') {
+        $couples=1;
+    } elseif ($suitablefor=='family') {
+        $family=1;
+    } else {
+        $othergroup=1;
     }
     $availableNow=(isset($_POST['availableNow']) ? 0 : 1);
     $BuildingType=(isset($_POST['BuildingType']) ? $_POST['BuildingType'] : null);
@@ -60,13 +54,11 @@ if ($error != null) {
     $providesServiceToMale=0;
     $providesServiceToFemale=0;
     $providesServiceToTransgender=0;
-    if($gender=='male'){
+    if ($gender=='male') {
         $providesServiceToMale=1;
-    }
-    else if($gender=='female'){
+    } elseif ($gender=='female') {
         $providesServiceToFemale=1;
-    }
-    else if($gender=='transgender'){
+    } elseif ($gender=='transgender') {
         $providesServiceToTransgender=1;
     }
     //query
@@ -81,59 +73,52 @@ if ($error != null) {
     OR buildingType LIKE '%$BuildingType%' OR hasWaitingList=$availableNow OR
     buildingAccommodatedIndividualsWithDisabilites=$buildingdisability OR someUnitsAccommodateIndividualsWithDisabilities=$unitdisability;";
     $results = mysqli_query($connection, $sql);
-    while ($row = mysqli_fetch_assoc($results))
-    {
-      $count=0;
+    while ($row = mysqli_fetch_assoc($results)) {
+        $count=0;
 
-      if($row['unitsAreRGI']==$rgi){
-        $count=$count+1;
-      }
-      else if($row['providesServiceToMales']==$providesServiceToMale){
-        $count=$count+1;
-      }
-      else if($row['providesServiceToFemales']==$providesServiceToFemale){
-        $count=$count+1;
-      }
-      else if($row['providesServiceToTransgender']==$providesServiceToTransgender){
-        $count=$count+1;
-      }
-      if($row['providesServicesToDemographic16to18']==$providesServicesToDemographic16to18){
-        $count=$count+1;
-      }
-      else if($row['providesServiceToDemographic19']==$providesServiceToDemographic19){
-        $count=$count+1;
-      }
-      else if($row['providesServiceToDemographic55']==$providesServiceToDemographic55){
-        $count=$count+1;
-      }
-      if($row['providesServiceToOtherDemographic']==$providesServiceToOtherDemographic){
-        $count=$count+1;
-      }
-      if($row['primaryTargetResidentsAreIndividuals']==$rgi){
-        $count=$count+1;
-      }
-      else if($row['primaryTargetResidentsAreFamilies']==$rgi){
-        $count=$count+1;
-      }
-      if($row['monthlyCostOfStay']==$rgi){
-        $count=$count+1;
-      }
-      if($row['buildingType']==$BuildingType){
-        $count=$count+1;
-      }
-      if($row['hasWaitingList']==$rgi){
-        $count=$count+1;
-      }
-      if($row['buuildingIsPetFriendly']==$PetFriendly){
-        $count=$count+1;
-      }
-      if($row['buildingAccommodatedIndividualsWithDisabilites']==$buildingdisability){
-        $count=$count+1;
-      }
-      if($row['someUnitsAccommodateIndividualsWithDisabilities']==$unitdisability){
-        $count=$count+1;
-      }
-      $mfcArray[$row['id']]=$count;
+        if ($row['unitsAreRGI']==$rgi) {
+            $count=$count+1;
+        } elseif ($row['providesServiceToMales']==$providesServiceToMale) {
+            $count=$count+1;
+        } elseif ($row['providesServiceToFemales']==$providesServiceToFemale) {
+            $count=$count+1;
+        } elseif ($row['providesServiceToTransgender']==$providesServiceToTransgender) {
+            $count=$count+1;
+        }
+        if ($row['providesServicesToDemographic16to18']==$providesServicesToDemographic16to18) {
+            $count=$count+1;
+        } elseif ($row['providesServiceToDemographic19']==$providesServiceToDemographic19) {
+            $count=$count+1;
+        } elseif ($row['providesServiceToDemographic55']==$providesServiceToDemographic55) {
+            $count=$count+1;
+        }
+        if ($row['providesServiceToOtherDemographic']==$providesServiceToOtherDemographic) {
+            $count=$count+1;
+        }
+        if ($row['primaryTargetResidentsAreIndividuals']==$rgi) {
+            $count=$count+1;
+        } elseif ($row['primaryTargetResidentsAreFamilies']==$rgi) {
+            $count=$count+1;
+        }
+        if ($row['monthlyCostOfStay']==$rgi) {
+            $count=$count+1;
+        }
+        if ($row['buildingType']==$BuildingType) {
+            $count=$count+1;
+        }
+        if ($row['hasWaitingList']==$rgi) {
+            $count=$count+1;
+        }
+        if ($row['buuildingIsPetFriendly']==$PetFriendly) {
+            $count=$count+1;
+        }
+        if ($row['buildingAccommodatedIndividualsWithDisabilites']==$buildingdisability) {
+            $count=$count+1;
+        }
+        if ($row['someUnitsAccommodateIndividualsWithDisabilities']==$unitdisability) {
+            $count=$count+1;
+        }
+        $mfcArray[$row['id']]=$count;
     }
     arsort($mfcArray);
 
@@ -141,113 +126,113 @@ if ($error != null) {
     $pdf->AddPage();
 
     foreach ($mfcArray as $listId => $count) {
-    $sql = "SELECT  DISTINCT * FROM mfc WHERE id=".$listId." ;";
-    $results = mysqli_query($connection, $sql);
-    while ($row = mysqli_fetch_assoc($results))
-    {
-      $pdf->SetFont('Arial', 'b', 15);
-      $pdf->MultiCell(180, 10, (($count/10)*100).'%');
-      $pdf->MultiCell(180, 10, $row['title']);
-      $pdf->SetFont('Arial', 'u', 10);
+        $sql = "SELECT  DISTINCT * FROM mfc WHERE id=".$listId." ;";
+        $results = mysqli_query($connection, $sql);
+        // while ($row = mysqli_fetch_assoc($results))
+        // {
+        $row = mysqli_fetch_assoc($results);
+        $pdf->SetFont('Arial', 'b', 15);
+        $pdf->MultiCell(180, 10, (($count/10)*100).'%');
+        $pdf->MultiCell(180, 10, $row['title']);
+        $pdf->SetFont('Arial', 'u', 10);
 
-      $pdf->MultiCell(50, 10, 'Location: ' );
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['coordinate']);
+        $pdf->MultiCell(50, 10, 'Location: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['coordinate']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Description: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['description']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Description: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['description']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Building Type: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['buildingType']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Building Type: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['buildingType']);
 
-      $pdf->SetFont('Arial', 'b', 11);
-      $pdf->MultiCell(180, 10, "Cost");
+        $pdf->SetFont('Arial', 'b', 11);
+        $pdf->MultiCell(180, 10, "Cost");
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(90, 10, 'Eligible for income/disability assistance?: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['buildingQualifiesForRentalAssistance']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(90, 10, 'Eligible for income/disability assistance?: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['buildingQualifiesForRentalAssistance']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Rent/costs? ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['monthlyCostOfStay']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Rent/costs? ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['monthlyCostOfStay']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Is there a waitlist? ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10,  isZero($row['hasWaitingList']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Is there a waitlist? ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['hasWaitingList']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Estimated Wait Time: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10,$row['estimatedWaitTime']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Estimated Wait Time: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['estimatedWaitTime']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(80, 10, 'Has maximum duration of stay? ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['hasMaximumDurationOfStay']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(80, 10, 'Has maximum duration of stay? ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['hasMaximumDurationOfStay']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Services provided: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['servicesProvided']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Services provided: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['servicesProvided']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Other Services Provided: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['otherServices']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Other Services Provided: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['otherServices']));
 
-      $pdf->SetFont('Arial', 'b', 11);
-      $pdf->MultiCell(180, 10, "Restrictions");
+        $pdf->SetFont('Arial', 'b', 11);
+        $pdf->MultiCell(180, 10, "Restrictions");
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Pet Friendly? ' );
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['buuildingIsPetFriendly']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Pet Friendly? ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['buuildingIsPetFriendly']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Pet Restrictions: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['petRestriction']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Pet Restrictions: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['petRestriction']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Smoking? ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['smokingIsPermittedInBuilding']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Smoking? ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['smokingIsPermittedInBuilding']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Drug / Alcohol Tolerance: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, isZero($row['levelOfDrugsAndAlcoholTolerence']));
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Drug / Alcohol Tolerance: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, isZero($row['levelOfDrugsAndAlcoholTolerence']));
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Demographics Accomodated: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10,  $row['demographicServed']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Demographics Accomodated: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['demographicServed']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'Genders Accomodated: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['genderServed']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'Genders Accomodated: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['genderServed']);
 
-      $pdf->SetFont('Arial', 'u', 10);
-      $pdf->MultiCell(50, 10, 'People Accommodated: ');
-      $pdf->SetFont('');
-      $pdf->MultiCell(180, 10, $row['primaryTarget']);
+        $pdf->SetFont('Arial', 'u', 10);
+        $pdf->MultiCell(50, 10, 'People Accommodated: ');
+        $pdf->SetFont('');
+        $pdf->MultiCell(180, 10, $row['primaryTarget']);
 
-      $pdf->AddPage();
+        $pdf->AddPage();
 
-  }
-}
+        //  }
+    }
     mysqli_free_result($results);
     mysqli_close($connection);
     $pdf->Output();
-
 }
 function isZero($value)
 {
@@ -258,21 +243,21 @@ function isZero($value)
             } else {
                 return 'Yes';
             }
-        } else if (empty($value)) {
+        } elseif (empty($value)) {
             return 'N/A';
-        } else if ($value == '0') {
+        } elseif ($value=='[]') {
+            return 'N/A';
+        } elseif ($value == '0') {
             return 'No';
-        } else if($value=='1'){
+        } elseif ($value=='1') {
             return 'Yes';
-        }else{
+        } else {
             return $value;
         }
-    }else //is an array
-    if (empty($value)) {
+    } elseif //is an array
+    (empty($value)) {
         return 'N/A';
     } else {
         return $value;
     }
-  }
-
-?>
+}
